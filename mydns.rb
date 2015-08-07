@@ -9,8 +9,8 @@ require 'yaml'
 config=YAML.load(File.open('_config.yml'))
 
 INTERFACES = [
-    [:udp, "127.0.0.1", 53],
-    [:tcp, "127.0.0.1", 53]
+    [:udp, config["bind_ip"], config["bind_port"]],
+    [:tcp, config["bind_ip"], config["bind_port"]]
 ]
 Name = Resolv::DNS::Name
 IN = Resolv::DNS::Resource::IN
