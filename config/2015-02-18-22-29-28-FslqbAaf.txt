@@ -1,0 +1,354 @@
+[General and DNSCrypt information about Fusl's OpenNIC Tier2 DNS Servers]
+
+All servers have DNSCrypt configured on all its IP addresses and ports
+54, 443, 1053, 1194, 5353, 8080 and 27015. In case you don't want to
+use DNSCrypt but your provider still blocks or intercepts DNS traffic
+on port 53 only, you can use this iptables rule (for Linux only) to
+redirect your DNS traffic to another port (replace $IP with the IP of
+the server). The rule can be extended to randomize ports or even IPs
+with every single query.
+
+ iptables -t nat -A OUTPUT -p udp --dport 53 -j DNAT --to $IP:27015
+
+
+
+DNS-Server:     fvz-rec-at-vie-01
+IPv4:           192.71.247.247
+IPv6:           2a03:f80:ed15:ca7:ea75:b12d:714:d234
+Location:       Austria, Vienna
+DNSCrypt-Key:   68E7:D19C:94AB:12C8:8812:C26D:88E9:8381:C902:B0DA:C2CA:A70C:3ED6:2A80:6F91:4990
+DNSCrypt-Name:  2.fvz-rec-at-vie-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-au-nsw-01
+IPv4:           163.47.20.30
+IPv6:           2406:d501::f40d:f86
+IPv6:           2406:d501::5f63:a46d
+IPv6:           2406:d501::4bfb:4353
+IPv6:           2406:d501::d9f:d957
+IPv6:           2406:d501::9e6:7b1d
+IPv6:           2406:d501::7ad8:49cf
+IPv6:           2406:d501::b106:bcf2
+IPv6:           2406:d501::f74:e314
+IPv6:           2406:d501::2607:8358
+IPv6:           2406:d501::6365:8df4
+Location:       Sydney, Australia
+DNSCrypt-Key:   8DBC:4DF7:3850:9645:16B7:C8D7:4A93:8796:5E8B:D881:7A02:59FB:FE29:73D6:EE5B:BC58
+DNSCrypt-Name:  2.fvz-rec-au-nsw-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-au-sa-01
+IPv4:           103.25.56.238
+IPv6:           2401:1400:1:1201:216:3cff:fea7:bcf7
+Location:       Adelaide, Australia
+DNSCrypt-Key:   200C:CB86:169D:57B4:D7D1:2D36:37A8:BF86:720C:DBEF:7F7F:8146:FFCD:CC00:385D:1F37
+DNSCrypt-Name:  2.fvz-rec-au-sa-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-au-vic-01
+IPv4:           111.223.227.125
+Location:       Melbourne, Australia
+DNSCrypt-Key:   2CB6:7A7A:8CA5:FB21:3821:A49B:58F8:2ED1:5B77:7439:1D63:399E:66C6:F971:B9C4:78D2
+DNSCrypt-Name:  2.fvz-rec-au-vic-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-au-wa-01
+IPv4:           103.241.0.207
+Location:       Perth, Australia
+DNSCrypt-Key:   9F8B:5318:2261:3A0B:4442:AE99:D3AF:8A4F:D6C6:5807:C5D8:EBD3:70A9:FF9E:BAE8:20FD
+DNSCrypt-Name:  2.fvz-rec-au-wa-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-be-vwv-01
+IPv4:           192.71.249.249
+Location:       Oostkamp, Belgium
+DNSCrypt-Key:   26B5:70B0:0699:F86D:524D:706D:AE2B:4873:4309:E5C2:E937:23A2:8D76:F4F0:433A:7DB5
+DNSCrypt-Name:  2.fvz-rec-be-vwv-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-ca-on-01
+IPv4:           69.28.67.83
+Location:       Toronto, Canada
+DNSCrypt-Key:   8EE0:828C:9F1C:DEB7:6ECB:E4FE:A219:F34A:0B1C:4E8E:CE86:BA63:F135:EE76:C27A:E394
+DNSCrypt-Name:  2.fvz-rec-ca-on-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-ch-zu-01
+IPv4:           192.121.170.170
+IPv6:           2a02:418:6050:ed15:ed15:ed15:e385:e640
+Location:       Zurich, Switzerland
+DNSCrypt-Key:   A5E8:95E4:A242:923C:470D:105B:80AD:F6AF:2951:A585:D893:0591:53D3:D1B9:8F27:FC53
+DNSCrypt-Name:  2.fvz-rec-ch-zu-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-cl-vs-01
+IPv4:           37.235.52.191
+IPv6:           2a03:f80:56:37:235:52:191:1
+Location:       Vina del Mar, Chile
+DNSCrypt-Key:   809E:3976:A815:9B6C:42F2:B245:6BA0:FC58:7B29:FAA9:4B0E:CDC0:5F81:5402:C070:1E99
+DNSCrypt-Name:  2.fvz-rec-cl-vs-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-de-dus-01
+IPv4:           62.141.38.230
+IPv6:           2001:4ba0:cafe:383:123:4567:89ab:cdef
+IPv6:           2001:4ba0:cafe:383:a:dead:beef:b10b
+IPv6:           2001:4ba0:cafe:383:15:a:bad:1dea
+IPv6:           2001:4ba0:cafe:383::1
+Location:       Dusseldorf, Germany
+DNSCrypt-Key:   1F92:37B2:4083:D058:E871:615B:59C7:3E28:EC54:FC4E:231D:017B:DA02:A532:6AF2:72BE
+DNSCrypt-Name:  2.fvz-rec-de-dus-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-de-fra-01
+IPv4:           62.113.200.106
+IPv6:           2a00:f48:1026:0:f1f7:0:53f:a958
+IPv6:           2a00:f48:1026:0:f1f7:0:1342:1e5c
+IPv6:           2a00:f48:1026:0:f1f7:0:af82:e9f1
+IPv6:           2a00:f48:1026:0:f1f7:0:3476:386b
+IPv6:           2a00:f48:1026:0:f1f7:0:3a83:d484
+IPv6:           2a00:f48:1026:0:f1f7:0:30b6:c4f0
+IPv6:           2a00:f48:1026:0:f1f7:0:dc6b:9137
+IPv6:           2a00:f48:1026:0:f1f7:0:10cf:e872
+IPv6:           2a00:f48:1026:0:f1f7:0:2d26:752
+IPv6:           2a00:f48:1026:0:f1f7:0:7b0b:9c5e
+IPv6:           2a00:f48:1026:0:f1f7:0:51d5:2c63
+IPv6:           2a00:f48:1026:0:f1f7:0:ae49:8e8
+IPv6:           2a00:f48:1026:0:f1f7:0:ac5a:c1e5
+IPv6:           2a00:f48:1026:0:f1f7:0:2a83:3fab
+IPv6:           2a00:f48:1026:0:f1f7:0:e249:7d13
+IPv6:           2a00:f48:1026:0:f1f7:0:8b3c:23c8
+Location:       Frankfurt, Germany
+DNSCrypt-Key:   BD20:6A93:6A02:9240:75BE:9435:8BC9:7461:10D9:B30B:4AD7:61D0:C10A:71FC:8CA5:5260
+DNSCrypt-Name:  2.fvz-rec-de-fra-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-de-fra-02
+IPv4:           84.200.83.161
+IPv6:           2001:1608:10:3::f:9
+Location:       Frankfurt, Germany
+DNSCrypt-Key:   E06F:D688:E536:A6C0:D819:1A27:3FA8:68FD:4DAE:F622:9464:2B66:0C0A:882D:7AEE:15BE
+DNSCrypt-Name:  2.fvz-rec-de-fra-02.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-de-fra-03
+IPv4:           109.230.224.106
+IPv6:           2a02:d40:3:1:50d3:1eff:fe26:bb6a
+Location:       Frankfurt, Germany
+DNSCrypt-Key:   6F4B:65F9:A4B1:B179:470E:B10B:01AF:8293:D617:6126:E1D6:5DF3:C3B1:1C04:20EF:E5A1
+DNSCrypt-Name:  2.fvz-rec-de-fra-03.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-de-sn-01
+IPv4:           78.47.34.12
+IPv6:           2a01:4f8:192:2393::f023:90af
+Location:       Falkenstein, Germany
+DNSCrypt-Key:   BFD1:DBB1:25BF:96D0:A360:5292:C127:6B30:ED3E:03A3:E51F:FDD9:370A:1120:EC70:D0F1
+DNSCrypt-Name:  2.fvz-rec-de-sn-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-fr-rbx-01
+IPv4:           37.59.72.228
+Location:       Roubaix, France
+DNSCrypt-Key:   FAE0:FFB7:E30B:69D6:09FC:FAD3:7126:ECE9:1AA6:E390:1549:89A2:1045:7605:A09C:A0C8
+DNSCrypt-Name:  2.fvz-rec-fr-rbx-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-fr-sxb-01
+IPv4:           46.105.212.15
+Location:       Strasbourg, France
+DNSCrypt-Key:   DB91:D1E5:1D3B:993B:9677:D1A5:2C42:C46E:0397:D038:33D7:6D9E:7964:FEAC:0A16:4CFF
+DNSCrypt-Name:  2.fvz-rec-fr-sxb-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-gb-eng-01
+IPv4:           178.79.174.162
+IPv6:           2a01:7e00::f03c:91ff:fe84:da61
+Location:       London, England
+DNSCrypt-Key:   8E14:C710:FA49:6F5E:18D7:DA15:6E80:5CDD:F666:299F:438E:5798:63F1:4513:68D1:9B3A
+DNSCrypt-Name:  2.fvz-rec-gb-eng-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-hk-nt-01
+IPv4:           151.236.20.236
+IPv6:           2a03:f80:852:151:236:20:236:1
+Location:       New Territories, Hong Kong
+DNSCrypt-Key:   AEE3:61A5:D48D:C08A:A333:34F4:9D66:6521:5983:0BA2:6BB1:A818:3558:BAC5:3510:6999
+DNSCrypt-Name:  2.fvz-rec-hk-nt-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-hu-bu-01
+IPv4:           79.120.211.147
+Location:       Budapest, Hungary
+DNSCrypt-Key:   A733:7AA3:2C6B:5388:6847:7406:21A2:1605:5FB2:8913:DC99:F467:AC25:D71A:3EFB:5CAF
+DNSCrypt-Name:  2.fvz-rec-hu-bu-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-il-ta-01
+IPv4:           193.182.144.144
+IPv6:           2a03:f80:972:193:182:144:144:1
+Location:       Tel Aviv, Israel
+DNSCrypt-Key:   D449:2F9E:B788:1940:18B7:AD4A:AFA6:BB90:3080:08A0:AC45:34A8:3E77:F9AE:3DC2:357F
+DNSCrypt-Name:  2.fvz-rec-il-ta-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-im-dgl-01
+IPv4:           192.71.211.211
+IPv6:           2a03:f80:44:192:71:211:211:1
+Location:       Douglas, Isle of Man
+DNSCrypt-Key:   8C67:31CA:9971:E934:ED55:56BF:5D63:E468:8997:E722:FF27:6D86:2D08:35F6:EA37:2292
+DNSCrypt-Name:  2.fvz-rec-im-dgl-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-is-hf-01
+IPv4:           192.71.218.218
+IPv6:           2a03:f80:354:ca7:ea75:b12d:31:31
+Location:       Hafnarfjordur, Iceland
+DNSCrypt-Key:   EEE9:C4EA:1727:3DAE:C4C9:74CE:B4E3:F713:1BCA:C32A:8FF4:A672:818B:594A:3C7D:D1FB
+DNSCrypt-Name:  2.fvz-rec-is-hf-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-jp-tk-01
+IPv4:           106.185.41.36
+IPv6:           2400:8900::f03c:91ff:fe84:b7b
+Location:       Tokyo, Japan
+DNSCrypt-Key:   A45D:3F4A:2F1E:1D22:47C2:2D75:0877:5735:724E:A144:607B:26B0:76DD:F990:CDD1:1411
+DNSCrypt-Name:  2.fvz-rec-jp-tk-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-li-ba-01
+IPv4:           88.82.109.9
+IPv6:           2a02:380:4002:ed15:ed15:ed15:3170:4abe
+Location:       Balzers, Liechtenstein
+DNSCrypt-Key:   97C1:5832:7B99:B023:B2D6:58AD:C60C:ADBA:294A:6D7B:82D0:1F40:5249:57C9:3F08:B9AD
+DNSCrypt-Name:  2.fvz-rec-li-ba-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-nl-fl-01
+IPv4:           31.220.43.191
+IPv6:           2a00:1ca8:81:2b::5749
+Location:       Dronten, Netherlands
+DNSCrypt-Key:   EAD5:E575:EBEB:D93C:8D30:48EE:3AE1:A66D:34D0:A4E7:712E:8758:115F:EC81:BCAE:6297
+DNSCrypt-Name:  2.fvz-rec-nl-fl-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-nl-nh-01
+IPv4:           151.236.29.92
+IPv6:           2a00:1768:1005:1000:1000:1000:e621:4948
+Location:       Schiphol Rijk, Netherlands
+DNSCrypt-Key:   0F96:3272:B65D:3601:FA34:5578:DCDF:FC2D:82EF:50DD:2C5F:E338:5125:AF0C:FE8F:E226
+DNSCrypt-Name:  2.fvz-rec-nl-nh-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-nz-auk-01
+IPv4:           163.47.21.44
+Location:       Auckland, New Zealand
+DNSCrypt-Key:   74F2:57B9:AA90:5D56:B186:06C5:520E:CBB6:549F:609B:D87D:472D:10C7:46F6:571F:E76E
+DNSCrypt-Name:  2.fvz-rec-nz-auk-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-ru-mow-01
+IPv4:           213.183.57.55
+IPv4:           213.183.57.57
+IPv6:           2a02:150:7:213:183:57:55:0
+Location:       Russia, Moscow
+DNSCrypt-Key:   3CDA:6127:8201:5CDF:E799:43B4:4E46:2A56:B789:522A:E493:32ED:9029:4114:D375:322D
+DNSCrypt-Name:  2.fvz-rec-ru-mow-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-se-ab-01
+IPv4:           31.220.5.106
+IPv6:           2a00:1a28:1157:84::342c
+Location:       Stockholm, Sweden
+DNSCrypt-Key:   3FFA:D9E4:AE6F:B96D:C0FC:AB0D:66C5:F329:B40E:533F:4B19:D24B:A4B8:90EC:6CF1:EFE4
+DNSCrypt-Name:  2.fvz-rec-se-ab-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-sg-ea-01
+IPv4:           103.25.202.192
+Location:       Chai Chee, Singapore
+DNSCrypt-Key:   3A0D:7AFE:97D6:A42C:5621:F5CD:0484:B1C9:0EC7:DD3E:807E:22D0:D9FC:CB9B:C9B1:97D1
+DNSCrypt-Name:  2.fvz-rec-sg-ea-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-us-ca-01
+IPv4:           74.207.241.202
+IPv6:           2600:3c01::f03c:91ff:fe84:da54
+Location:       Fremont, USA
+DNSCrypt-Key:   FAC6:3B37:8485:5E43:3CC3:8BBC:FA84:5DCB:8DF0:B683:3BB3:A116:126D:0C29:95CD:899F
+DNSCrypt-Name:  2.fvz-rec-us-ca-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-us-ca-02
+IPv4:           104.245.33.185
+Location:       San Francisco, USA
+DNSCrypt-Key:   9DF8:E6F0:2434:C1D2:A76D:578C:113D:26C8:8FAC:9CBB:8E22:86FF:D8A4:4317:467C:5469
+DNSCrypt-Name:  2.fvz-rec-us-ca-02.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-us-fl-01
+IPv4:           104.245.39.112
+Location:       Orlando, USA
+DNSCrypt-Key:   29A6:76E3:2447:7379:1E5A:D27B:80C3:FD92:C5D0:22EE:289E:4353:3BAB:AF86:3FC5:4672
+DNSCrypt-Name:  2.fvz-rec-us-fl-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-us-ga-01
+IPv4:           74.207.232.103
+IPv6:           2600:3c02::f03c:91ff:fe84:dac2
+Location:       Atlanta, USA
+DNSCrypt-Key:   F584:75C4:5693:317A:1D8E:4232:76E7:9E63:D286:B12D:B472:5FA2:92D3:E714:1E46:459B
+DNSCrypt-Name:  2.fvz-rec-us-ga-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-us-nj-01
+IPv4:           104.237.144.172
+IPv6:           2600:3c03::f03c:91ff:fe84:dac6
+Location:       Newark, USA
+DNSCrypt-Key:   1FA4:DE34:8A9E:7AFE:09DA:C3E7:DF0A:2844:25E6:3136:A2AE:CB2E:2ABA:7AB7:CEDC:4EE9
+DNSCrypt-Name:  2.fvz-rec-us-nj-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-us-tx-01
+IPv4:           104.237.136.225
+IPv6:           2600:3c00::f03c:91ff:fe84:da6f
+Location:       Dallas, USA
+DNSCrypt-Key:   3AD3:9A08:6E1B:B3FD:8647:7D63:8DCE:68E0:AE98:A270:23D6:193D:CDE9:1198:F635:A34F
+DNSCrypt-Name:  2.fvz-rec-us-tx-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-us-tx-02
+IPv4:           104.219.55.89
+Location:       Dallas, USA
+DNSCrypt-Key:   7A41:1C32:21F6:0062:5EA3:8775:125D:5DA4:8FE3:1709:7919:D170:41C4:7E9A:DBB3:C7C3
+DNSCrypt-Name:  2.fvz-rec-us-tx-02.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-us-wa-01
+IPv4:           23.226.230.72
+IPv6:           2604:180:1::ec0b:6535
+IPv6:           2604:180:1::8bcf:7b45
+IPv6:           2604:180:1::435:e35e
+IPv6:           2604:180:1::27a9:3f3b
+IPv6:           2604:180:1::e7d2:563e
+IPv6:           2604:180:1::a9ef:8168
+IPv6:           2604:180:1::1b72:ce49
+IPv6:           2604:180:1::36d5:16f3
+IPv6:           2604:180:1::a7be:d83b
+IPv6:           2604:180:1::65ef:f8c0
+IPv6:           2604:180:1::c56e:ab0b
+IPv6:           2604:180:1::6e84:c523
+IPv6:           2604:180:1::347b:b4e0
+IPv6:           2604:180:1::feca:5ec2
+IPv6:           2604:180:1::8d12:1dc
+IPv6:           2604:180:1::63d5:ba18
+Location:       Seattle, USA
+DNSCrypt-Key:   48D8:70BF:2833:49E8:59AC:DD12:2D49:F119:DA7E:1CAB:A2D3:B9C0:F573:133D:8BC1:A26E
+DNSCrypt-Name:  2.fvz-rec-us-wa-01.dnscrypt-cert.meo.ws
+
+
+DNS-Server:     fvz-rec-za-wc-01
+IPv4:           41.185.78.25
+Location:       Cape Town, South Africa
+DNSCrypt-Key:   53C5:F511:4FC5:F090:9D93:F436:C6E7:C85C:DEB9:C252:1716:BFFC:1B26:3DCB:69F7:DBE2
+DNSCrypt-Name:  2.fvz-rec-za-wc-01.dnscrypt-cert.meo.ws
