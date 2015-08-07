@@ -699,3 +699,180 @@
 2015-08-08 01:53:13 +0800: oversea  : address=/b._dns-sd._udp.0.3.168.192.in-addr.arpa//
 2015-08-08 01:53:13 +0800: oversea  : address=/lb._dns-sd._udp.0.3.168.192.in-addr.arpa//
 2015-08-08 01:53:13 +0800: oversea  : address=/db._dns-sd._udp.0.3.168.192.in-addr.arpa//
+2015-08-08 01:54:59 +0800: [39376] Sending request [git-scm.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:54:59 +0800: [52453] Sending request [iissnan.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:54:59 +0800: [2615] Sending request [pcottle.github.io] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:54:59 +0800: domestic : address=/git-scm.com/50.17.246.126 54.225.134.107 50.16.249.241/600 600 600 
+2015-08-08 01:54:59 +0800: [39376] Sending request [git-scm.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:54:59 +0800: domestic : address=/iissnan.com/192.30.252.153/600 
+2015-08-08 01:54:59 +0800: [52453] Sending request [iissnan.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:55:00 +0800: oversea  : address=/git-scm.com/50.16.249.241 54.225.134.107 50.17.246.126/60 60 60
+2015-08-08 01:55:00 +0800: Updating [git-scm.com 50.16.249.241 54.225.134.107 50.17.246.126 60 60 60] 
+2015-08-08 01:55:00 +0800: Writing oversea: git-scm.com 50.16.249.241 54.225.134.107 50.17.246.126
+2015-08-08 01:55:00 +0800: [46988] Sending request [rogerdudler.github.io] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:00 +0800: domestic : address=/pcottle.github.io/103.245.222.133/600 
+2015-08-08 01:55:00 +0800: [2615] Sending request [pcottle.github.io] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:55:00 +0800: [12585] Sending request [img3.douban.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:00 +0800: domestic : address=/img3.douban.com/219.128.78.75 61.140.13.103 113.107.57.41 113.107.57.43 125.90.204.122 14.215.9.85 183.57.144.187 183.57.28.61 183.61.67.88/600 600 600 600 600 600 600 600 600 
+2015-08-08 01:55:00 +0800: oversea  : address=/pcottle.github.io/103.245.222.133/26
+2015-08-08 01:55:00 +0800: Writing oversea: pcottle.github.io 103.245.222.133
+2015-08-08 01:55:00 +0800: [64121] Sending request [www.atlassian.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:00 +0800: oversea  : address=/iissnan.com/192.30.252.153/600
+2015-08-08 01:55:00 +0800: Writing oversea: iissnan.com 192.30.252.153
+2015-08-08 01:55:00 +0800: [57922] Sending request [www.ui.cn] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:00 +0800: domestic : address=/www.ui.cn/42.62.78.217/600 
+2015-08-08 01:55:00 +0800: Force domestic resolver [www.ui.cn  42.62.78.217] 
+2015-08-08 01:55:00 +0800: domestic : address=/www.atlassian.com/54.88.56.182 54.85.142.90/600 600 
+2015-08-08 01:55:00 +0800: [64121] Sending request [www.atlassian.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:55:00 +0800: [64520] Sending request [assets.jianshu.io] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:00 +0800: domestic : address=/assets.jianshu.io/14.215.9.85 14.29.54.34 183.57.28.61 183.61.67.43 219.128.78.75 61.140.13.103 113.107.57.41 14.215.100.95/600 600 600 600 600 600 600 600 
+2015-08-08 01:55:00 +0800: oversea  : address=/www.atlassian.com/54.88.56.182 54.85.142.90/60 60
+2015-08-08 01:55:00 +0800: Writing oversea: www.atlassian.com 54.88.56.182 54.85.142.90
+2015-08-08 01:55:01 +0800: [14587] Sending request [rogerdudler.github.io] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:02 +0800: domestic : address=/rogerdudler.github.io/103.245.222.133/600 
+2015-08-08 01:55:02 +0800: [46988] Sending request [rogerdudler.github.io] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:55:02 +0800: oversea  : address=/rogerdudler.github.io/103.245.222.133/23
+2015-08-08 01:55:02 +0800: Writing oversea: rogerdudler.github.io 103.245.222.133
+2015-08-08 01:55:04 +0800: domestic : address=/rogerdudler.github.io/103.245.222.133/600 
+2015-08-08 01:55:04 +0800: [14587] Sending request [rogerdudler.github.io] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:55:04 +0800: oversea  : address=/rogerdudler.github.io/103.245.222.133/22
+2015-08-08 01:55:04 +0800: Updating [rogerdudler.github.io 103.245.222.133 22] 
+2015-08-08 01:55:04 +0800: Writing oversea: rogerdudler.github.io 103.245.222.133
+2015-08-08 01:55:34 +0800: [42721] Sending request [hm1.cnzz.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:34 +0800: domestic : address=/hm1.cnzz.com/42.156.140.141/600 
+2015-08-08 01:55:34 +0800: [58347] Sending request [tp4.sinaimg.cn] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:34 +0800: domestic : address=/tp4.sinaimg.cn/183.61.157.33 183.61.67.88 113.107.57.43 14.152.79.30 14.215.100.94 183.57.28.61/600 600 600 600 600 600 
+2015-08-08 01:55:34 +0800: Force domestic resolver [tp4.sinaimg.cn  183.61.157.33 183.61.67.88 113.107.57.43 14.152.79.30 14.215.100.94 183.57.28.61] 
+2015-08-08 01:55:35 +0800: [23170] Sending request [bam.nr-data.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:35 +0800: domestic : address=/bam.nr-data.net/50.31.164.173 50.31.164.166 50.31.164.175 50.31.164.174 50.31.164.165/600 600 600 600 600 
+2015-08-08 01:55:35 +0800: [23170] Sending request [bam.nr-data.net] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:55:35 +0800: oversea  : address=/bam.nr-data.net/50.31.164.175 50.31.164.173 50.31.164.165 50.31.164.166 50.31.164.174/859 859 859 859 859
+2015-08-08 01:55:35 +0800: Updating [bam.nr-data.net 50.31.164.175 50.31.164.173 50.31.164.165 50.31.164.166 50.31.164.174 859 859 859 859 859] 
+2015-08-08 01:55:35 +0800: Writing oversea: bam.nr-data.net 50.31.164.175 50.31.164.173 50.31.164.165 50.31.164.166 50.31.164.174
+2015-08-08 01:55:58 +0800: [29252] Sending request [tp2.sinaimg.cn] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:58 +0800: domestic : address=/tp2.sinaimg.cn/183.57.28.61 183.61.157.33 183.61.67.88 113.107.57.43 14.152.79.30 14.215.100.94/600 600 600 600 600 600 
+2015-08-08 01:55:58 +0800: Force domestic resolver [tp2.sinaimg.cn  183.57.28.61 183.61.157.33 183.61.67.88 113.107.57.43 14.152.79.30 14.215.100.94] 
+2015-08-08 01:55:59 +0800: [3313] Sending request [nvie.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:55:59 +0800: domestic : address=/nvie.com/199.27.79.133/3600 
+2015-08-08 01:55:59 +0800: [3313] Sending request [nvie.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:55:59 +0800: oversea  : address=/nvie.com/103.245.222.133/3600
+2015-08-08 01:55:59 +0800: Writing oversea: nvie.com 103.245.222.133
+2015-08-08 01:56:25 +0800: [18850] Sending request [blog.hainuo.info] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:25 +0800: domestic : address=/blog.hainuo.info/14.29.54.34 183.57.28.61 183.61.67.43 219.128.78.75 61.140.13.103 113.107.57.41 14.215.100.95 14.215.9.85/600 600 600 600 600 600 600 600 
+2015-08-08 01:56:25 +0800: [37132] Sending request [github.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:25 +0800: [64515] Sending request [github.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:25 +0800: domestic : address=/github.com/192.30.252.128/600 
+2015-08-08 01:56:25 +0800: [37132] Sending request [github.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:25 +0800: domestic : address=/github.com// 
+2015-08-08 01:56:25 +0800: [64515] Sending request [github.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:25 +0800: oversea  : address=/github.com/192.30.252.128/30
+2015-08-08 01:56:25 +0800: Updating [github.com 192.30.252.128 30] 
+2015-08-08 01:56:25 +0800: Writing oversea: github.com 192.30.252.128
+2015-08-08 01:56:25 +0800: oversea  : address=/github.com//
+2015-08-08 01:56:25 +0800: [9396] Sending request [www.isg-apple.com.akadns.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:25 +0800: [14251] Sending request [www.isg-apple.com.akadns.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:25 +0800: [17078] Sending request [1-courier.sandbox.push.apple.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:25 +0800: [33336] Sending request [1-courier.sandbox.push.apple.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:25 +0800: [7894] Sending request [1.courier-push-apple.com.akadns.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:25 +0800: [60188] Sending request [1.courier-push-apple.com.akadns.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:25 +0800: domestic : address=/www.isg-apple.com.akadns.net// 
+2015-08-08 01:56:25 +0800: [9396] Sending request [www.isg-apple.com.akadns.net] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:25 +0800: domestic : address=/www.isg-apple.com.akadns.net/23.73.102.233/11 
+2015-08-08 01:56:25 +0800: Force domestic resolver [www.isg-apple.com.akadns.net  23.73.102.233] 
+2015-08-08 01:56:25 +0800: domestic : address=/1-courier.sandbox.push.apple.com// 
+2015-08-08 01:56:25 +0800: [17078] Sending request [1-courier.sandbox.push.apple.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:25 +0800: domestic : address=/1-courier.sandbox.push.apple.com/17.110.227.101 17.110.226.165 17.110.227.102 17.110.227.99/45 45 45 45 
+2015-08-08 01:56:25 +0800: Force domestic resolver [1-courier.sandbox.push.apple.com  17.110.227.101 17.110.226.165 17.110.227.102 17.110.227.99] 
+2015-08-08 01:56:25 +0800: domestic : address=/1.courier-push-apple.com.akadns.net/17.172.232.169 17.172.232.149 17.172.239.128 17.172.232.107 17.172.232.215 17.172.232.141 17.172.239.47 17.172.239.142/14 14 14 14 14 14 14 14 
+2015-08-08 01:56:25 +0800: Force domestic resolver [1.courier-push-apple.com.akadns.net  17.172.232.169 17.172.232.149 17.172.239.128 17.172.232.107 17.172.232.215 17.172.232.141 17.172.239.47 17.172.239.142] 
+2015-08-08 01:56:25 +0800: domestic : address=/1.courier-push-apple.com.akadns.net// 
+2015-08-08 01:56:25 +0800: [7894] Sending request [1.courier-push-apple.com.akadns.net] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:25 +0800: oversea  : address=/1-courier.sandbox.push.apple.com//
+2015-08-08 01:56:25 +0800: oversea  : address=/1.courier-push-apple.com.akadns.net//
+2015-08-08 01:56:25 +0800: oversea  : address=/www.isg-apple.com.akadns.net//
+2015-08-08 01:56:26 +0800: [62413] Sending request [e3191.dscc.akamaiedge.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:26 +0800: [58752] Sending request [1.courier-sandbox-push-apple.com.akadns.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:26 +0800: [14960] Sending request [us-courier.push-apple.com.akadns.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:26 +0800: [33619] Sending request [ocsp.digicert.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:26 +0800: [58142] Sending request [ocsp.digicert.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:26 +0800: domestic : address=/e3191.dscc.akamaiedge.net// 
+2015-08-08 01:56:26 +0800: [62413] Sending request [e3191.dscc.akamaiedge.net] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:26 +0800: domestic : address=/ocsp.digicert.com// 
+2015-08-08 01:56:26 +0800: [33619] Sending request [ocsp.digicert.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:26 +0800: domestic : address=/us-courier.push-apple.com.akadns.net// 
+2015-08-08 01:56:26 +0800: [14960] Sending request [us-courier.push-apple.com.akadns.net] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:26 +0800: domestic : address=/ocsp.digicert.com/117.18.237.29/1799 
+2015-08-08 01:56:26 +0800: [58142] Sending request [ocsp.digicert.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:26 +0800: domestic : address=/1.courier-sandbox-push-apple.com.akadns.net// 
+2015-08-08 01:56:26 +0800: [58752] Sending request [1.courier-sandbox-push-apple.com.akadns.net] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:26 +0800: oversea  : address=/e3191.dscc.akamaiedge.net//
+2015-08-08 01:56:26 +0800: oversea  : address=/ocsp.digicert.com//
+2015-08-08 01:56:26 +0800: [32363] Sending request [cs9.wac.phicdn.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:26 +0800: [55199] Sending request [cs9.wac.phicdn.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:26 +0800: oversea  : address=/us-courier.push-apple.com.akadns.net//
+2015-08-08 01:56:26 +0800: oversea  : address=/ocsp.digicert.com/117.18.237.29/1920
+2015-08-08 01:56:26 +0800: Updating [ocsp.digicert.com 117.18.237.29 1920] 
+2015-08-08 01:56:26 +0800: Writing oversea: ocsp.digicert.com 117.18.237.29
+2015-08-08 01:56:26 +0800: domestic : address=/cs9.wac.phicdn.net/117.18.237.29/600 
+2015-08-08 01:56:26 +0800: [55199] Sending request [cs9.wac.phicdn.net] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:26 +0800: oversea  : address=/1.courier-sandbox-push-apple.com.akadns.net//
+2015-08-08 01:56:26 +0800: domestic : address=/cs9.wac.phicdn.net// 
+2015-08-08 01:56:26 +0800: [32363] Sending request [cs9.wac.phicdn.net] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:26 +0800: oversea  : address=/cs9.wac.phicdn.net/117.18.237.29/1920
+2015-08-08 01:56:26 +0800: Updating [cs9.wac.phicdn.net 117.18.237.29 1920] 
+2015-08-08 01:56:26 +0800: Writing oversea: cs9.wac.phicdn.net 117.18.237.29
+2015-08-08 01:56:26 +0800: oversea  : address=/cs9.wac.phicdn.net//
+2015-08-08 01:56:55 +0800: [25472] Sending request [19-courier.push.apple.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:55 +0800: [8797] Sending request [19-courier.push.apple.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:56:55 +0800: domestic : address=/19-courier.push.apple.com// 
+2015-08-08 01:56:55 +0800: [25472] Sending request [19-courier.push.apple.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:56:55 +0800: domestic : address=/19-courier.push.apple.com/17.143.162.214 17.143.160.221 17.143.164.17 17.143.161.94 17.143.160.23 17.143.162.34 17.143.163.97 17.143.163.210/9 9 9 9 9 9 9 9 
+2015-08-08 01:56:55 +0800: Force domestic resolver [19-courier.push.apple.com  17.143.162.214 17.143.160.221 17.143.164.17 17.143.161.94 17.143.160.23 17.143.162.34 17.143.163.97 17.143.163.210] 
+2015-08-08 01:56:55 +0800: oversea  : address=/19-courier.push.apple.com//
+2015-08-08 01:57:01 +0800: [49387] Sending request [github.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:57:01 +0800: domestic : address=/github.com/192.30.252.128/600 
+2015-08-08 01:57:01 +0800: [49387] Sending request [github.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:57:01 +0800: oversea  : address=/github.com/192.30.252.129/23
+2015-08-08 01:57:01 +0800: Updating [github.com 192.30.252.129 23] 
+2015-08-08 01:57:01 +0800: Writing oversea: github.com 192.30.252.129
+2015-08-08 01:57:04 +0800: [5838] Sending request [hostedconfig.scansafe.net] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:57:04 +0800: domestic : address=/hostedconfig.scansafe.net/46.255.41.2/600 
+2015-08-08 01:57:04 +0800: [5838] Sending request [hostedconfig.scansafe.net] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:57:04 +0800: oversea  : address=/hostedconfig.scansafe.net/46.255.41.2/434
+2015-08-08 01:57:04 +0800: Updating [hostedconfig.scansafe.net 46.255.41.2 434] 
+2015-08-08 01:57:04 +0800: Writing oversea: hostedconfig.scansafe.net 46.255.41.2
+2015-08-08 01:57:13 +0800: [58459] Sending request [5-courier.sandbox.push.apple.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:57:13 +0800: [50034] Sending request [5-courier.sandbox.push.apple.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:57:13 +0800: domestic : address=/5-courier.sandbox.push.apple.com// 
+2015-08-08 01:57:13 +0800: [58459] Sending request [5-courier.sandbox.push.apple.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:57:13 +0800: domestic : address=/5-courier.sandbox.push.apple.com/17.172.232.12 17.172.232.11 17.172.232.9 17.172.232.8 17.172.238.201 17.172.232.10/162 162 162 162 162 162 
+2015-08-08 01:57:13 +0800: Force domestic resolver [5-courier.sandbox.push.apple.com  17.172.232.12 17.172.232.11 17.172.232.9 17.172.232.8 17.172.238.201 17.172.232.10] 
+2015-08-08 01:57:13 +0800: oversea  : address=/5-courier.sandbox.push.apple.com//
+2015-08-08 01:57:45 +0800: [4725] Sending request [avatars2.githubusercontent.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:57:45 +0800: domestic : address=/avatars2.githubusercontent.com/103.245.222.133/600 
+2015-08-08 01:57:45 +0800: [4725] Sending request [avatars2.githubusercontent.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:57:45 +0800: oversea  : address=/avatars2.githubusercontent.com/103.245.222.133/21
+2015-08-08 01:57:45 +0800: Updating [avatars2.githubusercontent.com 103.245.222.133 21] 
+2015-08-08 01:57:45 +0800: Writing oversea: avatars2.githubusercontent.com 103.245.222.133
+2015-08-08 01:57:46 +0800: [56177] Sending request [collector.githubapp.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:57:46 +0800: domestic : address=/collector.githubapp.com/54.175.100.133 107.23.78.89 107.23.245.169/600 600 600 
+2015-08-08 01:57:46 +0800: [56177] Sending request [collector.githubapp.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:57:46 +0800: oversea  : address=/collector.githubapp.com/107.23.78.89 54.175.100.133 107.23.245.169/56 56 56
+2015-08-08 01:57:46 +0800: Updating [collector.githubapp.com 107.23.78.89 54.175.100.133 107.23.245.169 56 56 56] 
+2015-08-08 01:57:46 +0800: Writing oversea: collector.githubapp.com 107.23.78.89 54.175.100.133 107.23.245.169
+2015-08-08 01:57:59 +0800: [34915] Sending request [avatars0.githubusercontent.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:57:59 +0800: domestic : address=/avatars0.githubusercontent.com/103.245.222.133/600 
+2015-08-08 01:57:59 +0800: [34915] Sending request [avatars0.githubusercontent.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:57:59 +0800: oversea  : address=/avatars0.githubusercontent.com/103.245.222.133/7
+2015-08-08 01:57:59 +0800: Updating [avatars0.githubusercontent.com 103.245.222.133 7] 
+2015-08-08 01:57:59 +0800: Writing oversea: avatars0.githubusercontent.com 103.245.222.133
+2015-08-08 01:58:15 +0800: [54668] Sending request [github.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:58:15 +0800: [14714] Sending request [github.com] to server [:udp, "192.168.1.1", 53]
+2015-08-08 01:58:15 +0800: domestic : address=/github.com/192.30.252.128/600 
+2015-08-08 01:58:15 +0800: [54668] Sending request [github.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:58:15 +0800: domestic : address=/github.com// 
+2015-08-08 01:58:15 +0800: [14714] Sending request [github.com] to server [:udp, "127.0.0.1", 5533]
+2015-08-08 01:58:15 +0800: oversea  : address=/github.com/192.30.252.130/30
+2015-08-08 01:58:15 +0800: Updating [github.com 192.30.252.130 30] 
+2015-08-08 01:58:15 +0800: Writing oversea: github.com 192.30.252.130
+2015-08-08 01:58:15 +0800: oversea  : address=/github.com//
