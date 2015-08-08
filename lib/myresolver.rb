@@ -36,9 +36,15 @@ class MyResolver < RubyDNS::Resolver
 		    name = get_request_domain_name(message)
 		    if (h = @cache.find {|h| (h[:name] == name) and h[:state_valid]}) != nil
 		    	t = Time.now
-		    	if (t-h[:time] < h[:ttl][0])  # update cache every 12 hour
-		    	  @logger.debug "Found in cache #{name} #{h[:ip]} in cache keep in #{t-h[:time]} seconds" if @logger 
-                  return h[:response]
+               
+                vf_flag = true
+                h[:ttl].each do |ttl|
+    		           vf_flag = (vf_flag and false) if (t-h[:time] > ttl) # if any ttl is invalid, update cache     
+                end
+
+                if vf_flag
+                    @logger.debug "Found in cache #{name} #{h[:ip]} keep in #{t-h[:time]} seconds" if @logger 
+                    return h[:response]
                 else
                   #@cache.delete_if {|h| h[:name] == name}
                   h[:state_valid] = false
@@ -279,7 +285,7 @@ class MyResolver < RubyDNS::Resolver
 	def make_response(h)
 		response = Resolv::DNS::Message.new
 		response.add_question(h[:name],Resolv::DNS::Resource::IN::A)
-        
+
         h[:ip].sort.reverse.each do |ip|
         	# ip.split('.').collect{|x| x.to_i}.pack ('C4')
           if cname?(ip)
