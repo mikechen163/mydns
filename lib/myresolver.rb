@@ -279,7 +279,8 @@ class MyResolver < RubyDNS::Resolver
 	def make_response(h)
 		response = Resolv::DNS::Message.new
 		response.add_question(h[:name],Resolv::DNS::Resource::IN::A)
-        h[:ip].each do |ip|
+        
+        h[:ip].sort.reverse.each do |ip|
         	# ip.split('.').collect{|x| x.to_i}.pack ('C4')
           if cname?(ip)
             ip=Resolv::DNS::Resource::IN::CNAME.new(Resolv::DNS::Name.create(ip))

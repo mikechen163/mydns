@@ -32,7 +32,12 @@ logger.formatter = proc { |severity, datetime, progname, msg|
 #myresolver = MyResolver.new([[:udp, "192.168.2.1", 53],[:tcp, "106.185.41.36", 53]])
 #myresolver = MyResolver.new([[:udp, "192.168.2.1", 53]])
 #oversea_resolver = MyResolver.new([:q:[:tcp, "8.8.8.8", 53],[:tcp, "151.236.20.236", 53],[:tcp, "106.185.41.36", 53]])
-oversea_resolver = MyResolver.new([[:tcp, "127.0.0.1", 5533]],:logger=>logger)
+
+server_list = config["oversea_dns_resolver"].collect do |h|
+              h.values.each_with_index.collect {|x,i| i==0 ? x.to_sym : x}
+            end
+
+oversea_resolver = MyResolver.new(server_list,:logger=>logger)
 
 begin
     # Start the RubyDNS server
