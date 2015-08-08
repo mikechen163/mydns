@@ -41,6 +41,10 @@ class MyResolver < RubyDNS::Resolver
 			super
     end
 
+    def get_cache
+        return @cache
+    end
+
     def make_file_name(fname)
         return @config["home_directory"]+'/'+fname
     end
@@ -288,6 +292,7 @@ class MyResolver < RubyDNS::Resolver
 	          	iplist.split(' ').each do |ip|
 	          	  if (nr=h[:ip].find{|x| x==ip})==nil
 	          	  	h[:ip].push(ip)
+                    h[:ttl].push @config["default_ttl"]
 	          	  	update_flag = true
 	          	  end
 	          	end
@@ -320,10 +325,24 @@ class MyResolver < RubyDNS::Resolver
 		  ip.ttl = h[:ttl][0]
 		  response.add_answer(h[:name],h[:ttl][0],ip)
 	    end
-		return response
 	end
 		
+end
 
 
+if $0 == __FILE__
+ #puts "#{$0}" 
+
+ mr=MyResolver.new([[:udp,'129.168.1.1',53]])
+
+ def a2s(arr)
+    arr.inject(""){|r,v| r<<"#{v.to_s} "}.strip
+ end
+
+ mr.get_cache.each do |h|
+    puts "#{h[:name]}=#{a2s(h[:ip])}"
+ end
+
+ #exit(1)
 
 end

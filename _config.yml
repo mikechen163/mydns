@@ -12,9 +12,10 @@ bind_port          : 53
 # a $ means ending. ".cn$"" = ending in .cn
 force_using_domestic_resolve:
   name1 : .cn$
-  #name2 : apple.com
-  #name3 : icloud.com
+  name2 : apple.com
+  name3 : icloud.com
   name4 : xueqiu.com
+  name5 : baidu.com
 
 domestic_dns_resolver:
   - protocol : udp
