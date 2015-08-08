@@ -107,7 +107,8 @@ class MyResolver < RubyDNS::Resolver
 		 	    end
                 
                 ip_list = get_iplist_from_response(oversea_addr)
-                @logger.debug "Using oversea resolver [#{name} #{ip_list}]" if @logger
+                ttl_list = get_ttl_from_response(oversea_addr)
+                @logger.debug "Using oversea resolver [#{name} #{ip_list} #{ttl_list}]" if @logger
                 return oversea_resp 
             end
             
