@@ -73,6 +73,7 @@ class MyResolver < RubyDNS::Resolver
 		 		# h[:time] = Time.now
 		 		# h[:state_valid] = true
 		 		# @cache.push(h) 
+                @logger.debug "Found in domestic range,[#{name} #{ip_list}]" if @logger 
 		 		return domestic_resp 
 
 		 	else
@@ -104,7 +105,9 @@ class MyResolver < RubyDNS::Resolver
 			 	    append_record(h[:name],arr_to_s(h[:ip]))
 
 		 	    end
-
+                
+                ip_list = get_iplist_from_response(oversea_addr)
+                @logger.debug "Using oversea resolver [#{name} #{ip_list}]" if @logger
                 return oversea_resp 
             end
             
@@ -146,13 +149,14 @@ class MyResolver < RubyDNS::Resolver
             # result.each do |addr|
             # 	ip_list << ("#{addr[0]}:#{addr[1].to_i}")
             # end 
-            ip_list = arr_to_s(get_iplist_from_response(result))
-            ttl_list = arr_to_s(get_ttl_from_response(result))
+            
+            # ip_list = arr_to_s(get_iplist_from_response(result))
+            # ttl_list = arr_to_s(get_ttl_from_response(result))
 
-            #if ip_list!=""
-              @logger.debug "oversea  : address=/#{name}/#{ip_list}/#{ttl_list}" if @logger and oversea_flag
-              @logger.debug "domestic : address=/#{name}/#{ip_list}/#{ttl_list} " if @logger and not oversea_flag
-            #end
+            # #if ip_list!=""
+            #   @logger.debug "oversea  : address=/#{name}/#{ip_list}/#{ttl_list}" if @logger and oversea_flag
+            #   @logger.debug "domestic : address=/#{name}/#{ip_list}/#{ttl_list} " if @logger and not oversea_flag
+            # #end
 
 			return result
 		end
@@ -216,7 +220,7 @@ class MyResolver < RubyDNS::Resolver
 	    end
 
 	    def append_record(name,ip)
-    	@logger.debug "Writing oversea: #{name} #{ip}" if @logger 
+    	#@logger.debug "Writing oversea: #{name} #{ip}" if @logger 
     	@oversea_resolve.puts("address=/#{name}/#{ip}")
 	    end
 
