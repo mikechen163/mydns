@@ -43,7 +43,7 @@ class MyResolver < RubyDNS::Resolver
                 end
 
                 if vf_flag
-                    @logger.debug "Found in cache #{name} #{h[:ip]} keep in #{t-h[:time]} seconds" if @logger 
+                    @logger.debug "Found in cache [#{name} #{h[:ip]}] keep in #{t-h[:time]} seconds" if @logger 
                     return h[:response]
                 else
                   #@cache.delete_if {|h| h[:name] == name}
@@ -54,7 +54,7 @@ class MyResolver < RubyDNS::Resolver
 		 	domestic_resp, domestic_addr = get_domestic_reponse(message)
 
             if (domestic_addr.length!=0) and force_using_domestic?(name)
-              @logger.debug "Force domestic resolver [#{name}  #{arr_to_s(get_iplist_from_response(domestic_addr))}] " if @logger
+              @logger.debug "Force domestic resolver [#{name}  [#{arr_to_s(get_iplist_from_response(domestic_addr))}]] " if @logger
 		      return domestic_resp  
 		    end
 		 	
@@ -99,7 +99,7 @@ class MyResolver < RubyDNS::Resolver
 				 		h[:response] = oversea_resp
 				 		h[:time] = Time.now
 				 		h[:state_valid] = true
-				 		@logger.debug "Updating [#{h[:name]} #{arr_to_s(h[:ip])} #{arr_to_s(h[:ttl])}] " if @logger
+				 		@logger.debug "Updating [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
 				 		#append_record(h[:name],h[:ip])
 			 	    end
 			 	    append_record(h[:name],arr_to_s(h[:ip]))
