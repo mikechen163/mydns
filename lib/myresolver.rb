@@ -2,8 +2,19 @@ require 'rubydns'
 require 'time'
 require_relative 'domestic_addr'
 require 'yaml'
+require 'celluloid/io'
 
-#config=YAML.load(File.open('_config.yml'))
+# class InvalidProtocolError < StandardError
+# end
+
+# class InvalidResponseError < StandardError
+# end
+
+# class DecodeError < StandardError
+# end
+
+# class IOError < StandardError
+# end
 
 
 class MyResolver < RubyDNS::Resolver
@@ -18,6 +29,14 @@ class MyResolver < RubyDNS::Resolver
     	    @oversea_resolve = File.open(make_file_name(@config["ovsroute"]),'a')
 
             load_domestic_ip_file(make_file_name(@config["chnroute"]))
+
+            @domestic_server_list = @config["domestic_dns_resolver"].collect do |h|
+              h.values.each_with_index.collect {|x,i| i==0 ? x.to_sym : x}
+            end
+
+            @oversea_server_list = @config["oversea_dns_resolver"].collect do |h|
+              h.values.each_with_index.collect {|x,i| i==0 ? x.to_sym : x}
+            end
 
 			super
     end
@@ -51,52 +70,43 @@ class MyResolver < RubyDNS::Resolver
                 end
 		    end
 
-		 	domestic_resp, domestic_addr = get_domestic_reponse(message)
+		 	#domestic_resp, domestic_addr = get_domestic_reponse(message)
+            response, result = query_dns(message,@domestic_server_list,false)
 
-            if (domestic_addr.length!=0) and force_using_domestic?(name)
-              @logger.debug "Force domestic resolver [#{name}  [#{arr_to_s(get_iplist_from_response(domestic_addr))}]] " if @logger
-		      return domestic_resp  
+            if (result.length!=0) and force_using_domestic?(name)
+              @logger.debug "Force domestic resolver [#{name}  [#{arr_to_s(get_iplist_from_response(result))}]] " if @logger
+		      return response  
 		    end
 		 	
 		 	#@logger.debug "domestic_addr =  #{domestic_addr} " if @logger 
-             ip_list = get_iplist_from_response(domestic_addr)
+             ip_list = get_iplist_from_response(result)
 		 	if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
-		 		
 		 		#do not buffer domestic ip
-		 		# if ((h = @cache.find {|h| (h[:name] == name) and (not h[:state_valid])}) == nil)
-		 		#   h=Hash.new
-		 	 #    end
-
-		 		# h[:name] = get_request_domain_name(message)
-		 		# h[:ip] =domestic_addr[0].to_s
-		 		# h[:response] = domestic_resp
-		 		# h[:time] = Time.now
-		 		# h[:state_valid] = true
-		 		# @cache.push(h) 
                 @logger.debug "Found in domestic range,[#{name} #{ip_list}]" if @logger 
-		 		return domestic_resp 
+		 		return response 
 
 		 	else
-              	oversea_resp,oversea_addr  = get_oversea_reponse(message)
+              	#oversea_resp,oversea_addr  = get_oversea_reponse(message)
+                response,result  = query_dns(message,@oversea_server_list,true)
                 
-                if (oversea_addr.length!=0) 
+                if (result.length!=0) 
 			 	    #h=Hash.new
 			 	    if ((h = @cache.find {|h| (h[:name] == name) }) == nil)  #not found
 		 		        
                         h=Hash.new
 				 		h[:name] = get_request_domain_name(message)
-				 		h[:ip]   = get_iplist_from_response(oversea_addr)
-				 		h[:ttl]  = get_ttl_from_response(oversea_addr)
-				 		h[:response] = oversea_resp
+				 		h[:ip]   = get_iplist_from_response(result)
+				 		h[:ttl]  = get_ttl_from_response(result)
+				 		h[:response] = response
 				 		h[:time] = Time.now
 				 		h[:state_valid] = true
 				 		@cache.push(h) 
 				 		#append_record(h[:name],h[:ip])
 			 	    else #found,  h[:state_valid] must be false
 			 	    	h[:name] = get_request_domain_name(message)
-				 		h[:ip]   = get_iplist_from_response(oversea_addr)
-				 		h[:ttl]  = get_ttl_from_response(oversea_addr)
-				 		h[:response] = oversea_resp
+				 		h[:ip]   = get_iplist_from_response(result)
+				 		h[:ttl]  = get_ttl_from_response(result)
+				 		h[:response] = response
 				 		h[:time] = Time.now
 				 		h[:state_valid] = true
 				 		@logger.debug "Updating [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
@@ -106,10 +116,10 @@ class MyResolver < RubyDNS::Resolver
 
 		 	    end
                 
-                ip_list = get_iplist_from_response(oversea_addr)
-                ttl_list = get_ttl_from_response(oversea_addr)
+                ip_list = get_iplist_from_response(result)
+                ttl_list = get_ttl_from_response(result)
                 @logger.debug "Using oversea resolver [#{name} #{ip_list} #{ttl_list}]" if @logger
-                return oversea_resp 
+                return response 
             end
             
 		end #end of dispatch
@@ -165,7 +175,7 @@ class MyResolver < RubyDNS::Resolver
 		def query_dns(message,server_list,oversea_flag=false)
 			request = Request.new(message,server_list)
 			request.each do |server|
-				#@logger.debug "[#{message.id}] Sending request #{message.question} to server #{server.instance_variables}" if @logger
+	
 				@logger.debug "[#{message.id}] Sending request [#{get_request_domain_name(message)}] to server #{server.inspect}" if @logger
 				
 				begin
@@ -175,7 +185,6 @@ class MyResolver < RubyDNS::Resolver
 					# 	after(timeout) { socket.close }
 					# https://github.com/celluloid/celluloid-io/issues/121
 					timeout(request_timeout) do
-						#@logger.debug "[#{message.id}] My Try #{server[0]}:#{server[1]}..." if @logger
 						response = try_server(request, server)
 					end
 					
@@ -183,37 +192,38 @@ class MyResolver < RubyDNS::Resolver
 						addr = get_type_a_address(get_request_domain_name(message),response,oversea_flag)
 						return response , addr
 					end
-				rescue Task::TimeoutError
-					@logger.debug "[#{message.id}] Request timed out!" if @logger
-				rescue InvalidResponseError
-					@logger.warn "[#{message.id}] Invalid response from network: #{$!}!" if @logger
-				rescue DecodeError
-					@logger.warn "[#{message.id}] Error while decoding data from network: #{$!}!" if @logger
-				rescue IOError
-					@logger.warn "[#{message.id}] Error while reading from network: #{$!}!" if @logger
+				# rescue Task::TimeoutError
+				# 	@logger.debug "[#{message.id}] Request timed out!" if @logger
+				# rescue InvalidResponseError
+				# 	@logger.warn "[#{message.id}] Invalid response from network: #{$!}!" if @logger
+				# rescue DecodeError
+				# 	@logger.warn "[#{message.id}] Error while decoding data from network: #{$!}!" if @logger
+				# rescue IOError
+				# 	@logger.warn "[#{message.id}] Error while reading from network: #{$!}!" if @logger
+                rescue Exception => e     
 				end
 			end
 
 			return nil,[]
 		end #end of query_dns
 
-		def get_domestic_reponse(message)
-            server_list = @config["domestic_dns_resolver"].collect do |h|
-              h.values.each_with_index.collect {|x,i| i==0 ? x.to_sym : x}
-            end
+		# def get_domestic_reponse(message)
+  #           server_list = @config["domestic_dns_resolver"].collect do |h|
+  #             h.values.each_with_index.collect {|x,i| i==0 ? x.to_sym : x}
+  #           end
 
-            return query_dns(message,server_list)
-			#return query_dns(message, [[:udp, "192.168.1.1", 53],[:udp, "223.5.5.5", 53],[:udp, "14.18.142.2", 53]])
-		end 
-		def get_oversea_reponse(message)
+  #           return query_dns(message,server_list)
+		# 	#return query_dns(message, [[:udp, "192.168.1.1", 53],[:udp, "223.5.5.5", 53],[:udp, "14.18.142.2", 53]])
+		# end 
+		# def get_oversea_reponse(message)
 
-             server_list = @config["oversea_dns_resolver"].collect do |h|
-              h.values.each_with_index.collect {|x,i| i==0 ? x.to_sym : x}
-            end
+  #            server_list = @config["oversea_dns_resolver"].collect do |h|
+  #             h.values.each_with_index.collect {|x,i| i==0 ? x.to_sym : x}
+  #           end
 
-            return query_dns(message,server_list,true)
-			#return query_dns(message, [[:udp, "127.0.0.1", 5533]],true)
-		end 
+  #           return query_dns(message,server_list,true)
+		# 	#return query_dns(message, [[:udp, "127.0.0.1", 5533]],true)
+		# end 
 
 		def get_request_domain_name(message)
 			name = message.question[0][0].to_s
@@ -221,8 +231,8 @@ class MyResolver < RubyDNS::Resolver
 	    end
 
 	    def append_record(name,ip)
-    	#@logger.debug "Writing oversea: #{name} #{ip}" if @logger 
-    	@oversea_resolve.puts("address=/#{name}/#{ip}")
+    	  #@logger.debug "Writing oversea: #{name} #{ip}" if @logger 
+    	  @oversea_resolve.puts("address=/#{name}/#{ip}")
 	    end
 
 	    # def match_domestic?(ip)
