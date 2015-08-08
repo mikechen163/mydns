@@ -52,8 +52,6 @@ the program default listen on 127.0.0.1:53,then use dig to test.
 
    
 #### LICENSE
-   
-The MIT License (MIT)
 
 Copyright (C) 2015 mike chen
 
