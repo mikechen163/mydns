@@ -114,7 +114,12 @@ class MyResolver < RubyDNS::Resolver
 			 	    end
 			 	    append_record(h[:name],arr_to_s(h[:ip]))
 
-		 	    end
+		 	    else #result == 0
+                    if ((h = @cache.find {|h| (h[:name] == name) }) != nil)  #found
+                        @logger.debug "Oversea dns invalid, using cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
+                        return h[:response]
+                    end
+                end
                 
                 ip_list = get_iplist_from_response(result)
                 ttl_list = get_ttl_from_response(result)
