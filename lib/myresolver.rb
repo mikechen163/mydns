@@ -99,9 +99,6 @@ class MyResolver < RubyDNS::Resolver
 
 		 	    end
 
-		 	    
-
-
                 return oversea_resp 
             end
             
@@ -118,12 +115,20 @@ class MyResolver < RubyDNS::Resolver
             
             response.answer.each do |res|
 	            res.each do |x|
-	              #@logger.debug "get_address #{x.inspect} " if @logger
-	              if x.class == Resolv::DNS::Resource::IN::A #only process A type record
-	              	result.push([x.address.to_s,x.ttl.to_i]) if x!=nil
-	              end
+	              #@logger.debug "get_address #{x.class} " if @logger
+                  if  x.class ==  Resolv::DNS::Resource::IN::A #only process A type record
+    	              	result.push([x.address.to_s,x.ttl.to_i]) #if x!=nil
+                  end
+                  if x.class == Resolv::DNS::Resource::IN::CNAME
+                        name = x.name.to_s
+                        result.push([name[0..name.length-2],x.ttl.to_i]) #if x!=nil
+                  end
+                  #@logger.debug "Uknown type #{x.inspect} " if @logger
+	           
+
 	            end
             end
+            #@logger.debug "#{result.inspect} " if @logger
 
             # result.each do |addr| 
             # 	@logger.debug "oversea  get_address  #{addr} " if @logger and oversea_flag
@@ -267,12 +272,21 @@ class MyResolver < RubyDNS::Resolver
           end
 	end #end of load_cache
 
+    def cname?(s)
+        s.split('.').each {|word| return true if word.scan(/[a-z]+/).length > 0 }
+        return false
+    end
 	def make_response(h)
 		response = Resolv::DNS::Message.new
 		response.add_question(h[:name],Resolv::DNS::Resource::IN::A)
         h[:ip].each do |ip|
         	# ip.split('.').collect{|x| x.to_i}.pack ('C4')
-		  ip=Resolv::DNS::Resource::IN::A.new(ip)
+          if cname?(ip)
+            ip=Resolv::DNS::Resource::IN::CNAME.new(Resolv::DNS::Name.create(ip))
+          else  
+		    ip=Resolv::DNS::Resource::IN::A.new(ip)
+          end
+
 		  def ip.ttl= (ttl)
 		  	@ttl = ttl
 		  end
