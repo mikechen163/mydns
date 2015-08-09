@@ -25,7 +25,7 @@ class MyResolver < RubyDNS::Resolver
             @config=YAML.load(File.open('_config.yml'))
 
     	    @cache=[]
-    	    load_cache(make_file_name(@config["ovsroute"]))
+    	    #load_cache(make_file_name(@config["ovsroute"]))
     	    @oversea_resolve = File.open(make_file_name(@config["ovsroute"]),'a')
 
             load_domestic_ip_file(make_file_name(@config["chnroute"]))
@@ -334,6 +334,8 @@ if $0 == __FILE__
  #puts "#{$0}" 
 
  mr=MyResolver.new([[:udp,'129.168.1.1',53]])
+
+ mr.load_cache(make_file_name(@config["ovsroute"]))
 
  def a2s(arr)
     arr.inject(""){|r,v| r<<"#{v.to_s} "}.strip
