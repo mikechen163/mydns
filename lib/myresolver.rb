@@ -74,8 +74,27 @@ class MyResolver < RubyDNS::Resolver
                 end
 		    end
 
+
+            if @config["white_list_mode"] 
+                @config["white_list"].values.each do |item|
+                   found = name.index(item)
+                   if found!=nil
+                        response,result = request_oversea_resolver(message) 
+                        ip_list = get_iplist_from_response(result)
+                        ttl_list = get_ttl_from_response(result)
+                        @logger.debug "Whitelist oversea resolver [#{name} #{ip_list} #{ttl_list}]" if @logger     
+                        return response
+                   end
+                end
+            end
+
 		 	#domestic_resp, domestic_addr = get_domestic_reponse(message)
             response, result = query_dns(message,@domestic_server_list,false)
+
+            if @config["white_list_mode"] 
+              @logger.debug "Whitelist domestic resolver [#{name}  [#{arr_to_s(get_iplist_from_response(result))}]] " if @logger
+              return response  
+            end
 
             if (result.length!=0) and force_using_domestic?(name)
               @logger.debug "Force domestic resolver [#{name}  [#{arr_to_s(get_iplist_from_response(result))}]] " if @logger
@@ -90,50 +109,69 @@ class MyResolver < RubyDNS::Resolver
 		 		return response 
 
 		 	else
-              	#oversea_resp,oversea_addr  = get_oversea_reponse(message)
-                response,result  = query_dns(message,@oversea_server_list,true)
-                
-                if (result.length!=0) 
-			 	    #h=Hash.new
-			 	    if ((h = @cache.find {|h| (h[:name] == name) }) == nil)  #not found
-		 		        
-                        h=Hash.new
-				 		h[:name] = get_request_domain_name(message)
-				 		h[:ip]   = get_iplist_from_response(result)
-				 		h[:ttl]  = get_ttl_from_response(result)
-				 		h[:response] = response
-				 		h[:time] = Time.now
-				 		h[:state_valid] = true
-				 		@cache.push(h) 
-				 		#append_record(h[:name],h[:ip])
-			 	    else #found,  h[:state_valid] must be false
-			 	    	h[:name] = get_request_domain_name(message)
-				 		h[:ip]   = get_iplist_from_response(result)
-				 		h[:ttl]  = get_ttl_from_response(result)
-				 		h[:response] = response
-				 		h[:time] = Time.now
-				 		h[:state_valid] = true
-				 		@logger.debug "Updating [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
-				 		#append_record(h[:name],h[:ip])
-			 	    end
-			 	    append_record(h[:name],arr_to_s(h[:ip]))
+                response_r,result_r = request_oversea_resolver(message) 
 
-		 	    else #result == 0
-                    if ((h = @cache.find {|h| (h[:name] == name) }) != nil)  #found
-                        @logger.debug "Oversea dns invalid, using cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
-                        return h[:response]
-                    end
+                final_site = ""
+                ip_list = get_iplist_from_response(result_r)
+                if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
+                    final_site = "domestic"
+                else
+                    final_site = "oversea"
+                    response,result = response_r,result_r
                 end
-                
+
                 ip_list = get_iplist_from_response(result)
                 ttl_list = get_ttl_from_response(result)
-                @logger.debug "Using oversea resolver [#{name} #{ip_list} #{ttl_list}]" if @logger
-                return response 
+                @logger.debug "Using #{final_site} resolver [#{name} #{ip_list} #{ttl_list}]" if @logger     
+                return response
             end
             
 		end #end of dispatch
 
         private
+
+        def request_oversea_resolver(message)
+            name = get_request_domain_name(message)
+            response,result  = query_dns(message,@oversea_server_list,true)
+                
+                if (result.length!=0) 
+                    #h=Hash.new
+                    if ((h = @cache.find {|h| (h[:name] == name) }) == nil)  #not found
+                        
+                        h=Hash.new
+                        h[:name] = get_request_domain_name(message)
+                        h[:ip]   = get_iplist_from_response(result)
+                        h[:ttl]  = get_ttl_from_response(result)
+                        h[:response] = response
+                        h[:time] = Time.now
+                        h[:state_valid] = true
+                        @cache.push(h) 
+                        #append_record(h[:name],h[:ip])
+                    else #found,  h[:state_valid] must be false
+                        h[:name] = get_request_domain_name(message)
+                        h[:ip]   = get_iplist_from_response(result)
+                        h[:ttl]  = get_ttl_from_response(result)
+                        h[:response] = response
+                        h[:time] = Time.now
+                        h[:state_valid] = true
+                        @logger.debug "Updating [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
+                        #append_record(h[:name],h[:ip])
+                    end
+                    append_record(h[:name],arr_to_s(h[:ip]))
+
+                else #result == 0
+                    t= Time.now
+                    if ((h = @cache.find {|h| (h[:name] == name) }) != nil) and (t-h[:time] < @config["longest_valid_ttl"]) #found
+                        @logger.debug "Oversea dns invalid, using cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
+                        return h[:response],result
+                    end
+                end
+                
+                #ip_list = get_iplist_from_response(result)
+                #ttl_list = get_ttl_from_response(result)
+                #@logger.debug "Using oversea resolver [#{name} #{ip_list} #{ttl_list}]" if @logger
+                return response , result
+        end
 
 		def get_type_a_address(name,response,oversea_flag=false)
 			result = []
