@@ -74,6 +74,25 @@ class MyResolver < RubyDNS::Resolver
                 end
 		    end
 
+            if @config["now_in_oversea"]
+                        response,result = request_oversea_resolver(message)
+                        ip_list = get_iplist_from_response(result)
+                        ttl_list = get_ttl_from_response(result)
+
+                        #if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
+                        if is_domestic_result?(ip_list)
+                            response, result = query_dns(message,@domestic_server_list,false)
+                            ip_list = get_iplist_from_response(result)
+                            ttl_list = get_ttl_from_response(result)
+
+                            @logger.debug "Now_in_oversea using domestic resolver [#{name} #{ip_list} #{ttl_list}]" if @logger
+                            return response
+                        else
+                            @logger.debug "Now_in_oversea resolver [#{name} #{ip_list} #{ttl_list}]" if @logger
+                            return response
+                        end
+            end
+
 
             if @config["white_list_mode"] 
                 @config["white_list"].values.each do |item|
@@ -103,7 +122,8 @@ class MyResolver < RubyDNS::Resolver
 		 	
 		 	#@logger.debug "domestic_addr =  #{domestic_addr} " if @logger 
              ip_list = get_iplist_from_response(result)
-		 	if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
+		 	#if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
+            if is_domestic_result?(ip_list)
 		 		#do not buffer domestic ip
                 @logger.debug "Found in domestic range,[#{name} #{ip_list}]" if @logger 
 		 		return response 
@@ -113,7 +133,8 @@ class MyResolver < RubyDNS::Resolver
 
                 final_site = ""
                 ip_list = get_iplist_from_response(result_r)
-                if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
+                #if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
+                if is_domestic_result?(ip_list)
                     final_site = "domestic"
                 else
                     final_site = "oversea"
@@ -345,6 +366,16 @@ class MyResolver < RubyDNS::Resolver
         s.split('.').each {|word| return true if word.scan(/[a-z]+/).length > 0 }
         return false
     end
+
+    def is_domestic_result?(result)
+        return false if result.length==0
+        result.each do |ip| 
+            if not cname?(ip)
+                return match_domestic?(ip)
+            end
+        end
+    end
+
 	def make_response(h)
 		response = Resolv::DNS::Message.new
 		response.add_question(h[:name],Resolv::DNS::Resource::IN::A)
