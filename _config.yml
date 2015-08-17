@@ -16,6 +16,7 @@ white_list:      #this list will force to use oversea dns resolver
    name3 : facebook.com
    name4 : youtube.com 
    name5 : cnn.com
+   name6 : bbc.com
 
 
 
@@ -42,9 +43,9 @@ domestic_dns_resolver:
     address  : 14.18.142.2 # cloudxns dns server
     port     : 53
 
-  - protocol : udp
-    address  : 114.114.114.114 # 114
-    port     : 53
+  # - protocol : udp
+  #   address  : 114.114.114.114 # 114
+  #   port     : 53
 
 
 oversea_dns_resolver:
@@ -56,7 +57,7 @@ oversea_dns_resolver:
   #   address  : 127.0.0.1
   #   port     : 8888
 
- - protocol : tcp
+ - protocol : udp
    address  : 8.8.8.8 #google dns server
    port     : 53
    
