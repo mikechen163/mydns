@@ -30,24 +30,88 @@ module Domestic_address
          # end
 	end #load_domectic_file
 
-    def  match_domestic?(ip)
-        ip_hex = to_hex(ip) 
-        @ta.each do |na|
-            res = na[0]
-            mask = na[1]
-            mat = ip_hex & mask
-            if (mat == res)
-                # p show_ele(na)
-                # p ip_hex.to_s(16)
-                # p mat.to_s(16)
-                # p to_ip(ip_hex)             
-                return true
-            end
+  def b_match_domestic?(ip_hex,list)
 
-            #return true if (ip_hex & mask) == res 
+      len = list.length
+      if (1==len)
+         mask = list[0][1]
+         if ((ip_hex & mask) == list[0][0])
+            return true
+         else
+            return false
+         end
+      else
+        
+        pos = len/2
+        ele = list[pos]
+        mask = ele[1]
+        res = ele[0]
+
+        if ((ip_hex & mask) == res)
+           return true
         end
 
-        return false
+        if (ip_hex > res)
+          return false if (len == 2)
+          return b_match_domestic?(ip_hex,list[(pos+1)..(len-1)])
+        else
+          return b_match_domestic?(ip_hex,list[0..(pos-1)])
+        end
+      end
+  end #of function
+
+  # def b_match_domestic?(ip_hex,list)
+
+  #     len = list.length
+  #     puts "#{ip_hex} ,#{len}, #{list}"
+
+  #     if (1==len)
+        
+  #        if (ip_hex   == list[0])
+  #           return true
+  #        else
+  #           return false
+  #        end
+  #     else
+        
+  #       pos = len/2
+  #       ele = list[pos]
+
+  #       if (ip_hex == ele)
+  #          return true
+  #       end
+
+  #       if (ip_hex > ele)
+  #         return false if (len == 2)
+  #         return b_match_domestic?(ip_hex,list[(pos+1)..(len-1)])
+  #       else
+  #         return b_match_domestic?(ip_hex,list[0..(pos-1)])
+  #       end
+  #     end
+  # end #of function
+
+    def  match_domestic?(ip)
+        ip_hex = to_hex(ip) 
+
+        return b_match_domestic?(ip_hex,@ta)
+        
+
+        # @ta.each do |na|
+        #     res = na[0]
+        #     mask = na[1]
+        #     mat = ip_hex & mask
+        #     if (mat == res)
+        #         # p show_ele(na)
+        #         # p ip_hex.to_s(16)
+        #         # p mat.to_s(16)
+        #         # p to_ip(ip_hex)             
+        #         return true
+        #     end
+
+        #     #return true if (ip_hex & mask) == res 
+        # end
+
+        # return false
     end #belong_to
 
 	# def load_force_domestic_file(fname)

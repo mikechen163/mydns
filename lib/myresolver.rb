@@ -61,8 +61,9 @@ class MyResolver < RubyDNS::Resolver
 		    	t = Time.now
                
                 vf_flag = true
-                h[:ttl].each do |ttl|
-    		           vf_flag = (vf_flag and false) if (t-h[:time] > ttl) # if any ttl is invalid, update cache     
+                h[:ttl].each  do |ttl|
+    		           vf_flag = (vf_flag and false) if (t-h[:time] > ttl) # if any ttl is invalid, update cache  
+                       #vf_flag = (vf_flag and false) if (t-h[:time] > @config["default_ttl"]) # if any ttl is invalid, update cache     
                 end
 
                 if vf_flag
@@ -131,6 +132,15 @@ class MyResolver < RubyDNS::Resolver
 		 	else
                 response_r,result_r = request_oversea_resolver(message) 
 
+
+                 if (result_r.length==0) 
+                    t= Time.now
+                    if ((h = @cache.find {|h| (h[:name] == name) }) != nil) and (t-h[:time] < @config["longest_valid_ttl"]) #found
+                        @logger.debug "Oversea dns invalid, using cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
+                        return h[:response]
+                    end
+                end
+
                 final_site = ""
                 ip_list = get_iplist_from_response(result_r)
                 #if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
@@ -175,17 +185,17 @@ class MyResolver < RubyDNS::Resolver
                         h[:response] = response
                         h[:time] = Time.now
                         h[:state_valid] = true
-                        @logger.debug "Updating [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
+                        @logger.debug "Updating cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
                         #append_record(h[:name],h[:ip])
                     end
                     append_record(h[:name],arr_to_s(h[:ip]))
 
-                else #result == 0
-                    t= Time.now
-                    if ((h = @cache.find {|h| (h[:name] == name) }) != nil) and (t-h[:time] < @config["longest_valid_ttl"]) #found
-                        @logger.debug "Oversea dns invalid, using cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
-                        return h[:response],result
-                    end
+                else #result == 0 #move to outside
+                    # t= Time.now
+                    # if ((h = @cache.find {|h| (h[:name] == name) }) != nil) and (t-h[:time] < @config["longest_valid_ttl"]) #found
+                    #     @logger.debug "Oversea dns invalid, using cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
+                    #     return h[:response],result
+                    # end
                 end
                 
                 #ip_list = get_iplist_from_response(result)
@@ -240,11 +250,11 @@ class MyResolver < RubyDNS::Resolver
 			return result
 		end
 
-		def query_dns(message,server_list,oversea_flag=false)
+	def query_dns(message,server_list,oversea_flag=false)
 			request = Request.new(message,server_list)
 			request.each do |server|
 	
-				@logger.debug "[#{message.id}] Sending request [#{get_request_domain_name(message)}] to server #{server.inspect}" if @logger
+				#@logger.debug "[#{message.id}] Sending request [#{get_request_domain_name(message)}] to server #{server.inspect}" if @logger
 				
 				begin
 					response = nil
