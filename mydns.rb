@@ -20,6 +20,9 @@ IN = Resolv::DNS::Resource::IN
 #logger = Logger.new(file)
 logger = Logger.new(config["home_directory"]+'/'+config["logfile"])
 logger.level = Logger::DEBUG
+if config["loglevel"] == "INFO"
+    logger.level = Logger::INFO
+end
 logger.datetime_format = "%Y-%m-%d %H:%M:%S"
 logger.formatter = proc { |severity, datetime, progname, msg|
     "#{datetime}: #{msg}\n"
@@ -42,8 +45,8 @@ oversea_resolver = MyResolver.new(server_list,:logger=>logger)
 begin
     # Start the RubyDNS server
     RubyDNS::run_server(:listen => INTERFACES) do
-        match(/test\.mydomain\.org/, IN::A) do |transaction|
-            transaction.respond!("10.0.0.80")
+        match(/www\.google\.com/, IN::A) do |transaction|
+            transaction.respond!("172.217.3.164")
         end
 
         # Default DNS handler

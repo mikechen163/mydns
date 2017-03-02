@@ -86,10 +86,10 @@ class MyResolver < RubyDNS::Resolver
                             ip_list = get_iplist_from_response(result)
                             ttl_list = get_ttl_from_response(result)
 
-                            @logger.debug "[Now_in_oversea domestic][#{server[1]}:#{server[2]}][#{name} #{ip_list}] #{ttl_list}]" if @logger
+                            @logger.debug "[Now_in_oversea domestic][#{server[1]}:#{server[2]}][#{name} #{ip_list}]" if @logger
                             return response
                         else
-                            @logger.debug "[Now_in_oversea][#{server[1]}:#{server[2]}][#{name} #{ip_list}] #{ttl_list}]" if @logger
+                            @logger.debug "[Now_in_oversea][#{server[1]}:#{server[2]}][#{name} #{ip_list}]" if @logger
                             return response
                         end
             end
@@ -100,9 +100,21 @@ class MyResolver < RubyDNS::Resolver
                    found = name.index(item)
                    if found!=nil
                         server,response,result = request_oversea_resolver(message) 
+                        if (result.length==0)
+                            t= Time.now
+                            if ((h = @cache.find {|h| (h[:name] == name) }) != nil) and (t-h[:time] < @config["longest_valid_ttl"]) #found
+                                @logger.debug "white_list, using cache [#{h[:name]} [#{arr_to_s(h[:ip])}]" if @logger
+                                return h[:response]
+                            else
+                                @logger.debug "Receive empty response from [#{server[1]}:#{server[2]}] for [#{name}]" if @logger
+
+                                return nil
+                            end
+                        end
+
                         ip_list = get_iplist_from_response(result)
                         ttl_list = get_ttl_from_response(result)
-                        @logger.debug "[white_list][#{server[1]}:#{server[2]}][#{name} #{ip_list}] #{ttl_list}]" if @logger     
+                        @logger.debug "[white_list][#{server[1]}:#{server[2]}][#{name} #{ip_list}]" if @logger     
                         return response
                    end
                 end
@@ -136,8 +148,12 @@ class MyResolver < RubyDNS::Resolver
                  if (result_r.length==0) 
                     t= Time.now
                     if ((h = @cache.find {|h| (h[:name] == name) }) != nil) and (t-h[:time] < @config["longest_valid_ttl"]) #found
-                        @logger.debug "Oversea dns invalid, using cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
+                        @logger.debug "Oversea dns invalid, using cache [#{h[:name]} [#{arr_to_s(h[:ip])}]" if @logger
                         return h[:response]
+                    else
+                        @logger.debug "Receive empty response from [#{server_r[1]}:#{server_r[2]}] for [#{name}]" if @logger
+
+                        return nil
                     end
                 end
 
@@ -153,7 +169,7 @@ class MyResolver < RubyDNS::Resolver
 
                 ip_list = get_iplist_from_response(result)
                 ttl_list = get_ttl_from_response(result)
-                @logger.debug "[#{final_site}][#{server[1]}:#{server[2]}][#{name} #{ip_list} #{ttl_list}]" if @logger     
+                @logger.debug "[#{final_site}][#{server[1]}:#{server[2]}][#{name} #{ip_list}" if @logger     
                 return response
             end
             
@@ -267,6 +283,9 @@ class MyResolver < RubyDNS::Resolver
 					end
 					
 					if valid_response(message, response)
+                        if response.answer.count == 0
+                            return server_list[0],nil,[]
+                        end
 						addr = get_type_a_address(get_request_domain_name(message),response,oversea_flag)
 					return server ,response , addr
 					end
