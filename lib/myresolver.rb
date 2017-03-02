@@ -76,20 +76,20 @@ class MyResolver < RubyDNS::Resolver
 		    end
 
             if @config["now_in_oversea"]
-                        response,result = request_oversea_resolver(message)
+                        server,response,result = request_oversea_resolver(message)
                         ip_list = get_iplist_from_response(result)
                         ttl_list = get_ttl_from_response(result)
 
                         #if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
                         if is_domestic_result?(ip_list)
-                            response, result = query_dns(message,@domestic_server_list,false)
+                            server,response, result = query_dns(message,@domestic_server_list,false)
                             ip_list = get_iplist_from_response(result)
                             ttl_list = get_ttl_from_response(result)
 
-                            @logger.debug "Now_in_oversea using domestic resolver [#{name} #{ip_list} #{ttl_list}]" if @logger
+                            @logger.debug "[Now_in_oversea domestic][#{server[1]}:#{server[2]}][#{name} #{ip_list}] #{ttl_list}]" if @logger
                             return response
                         else
-                            @logger.debug "Now_in_oversea resolver [#{name} #{ip_list} #{ttl_list}]" if @logger
+                            @logger.debug "[Now_in_oversea][#{server[1]}:#{server[2]}][#{name} #{ip_list}] #{ttl_list}]" if @logger
                             return response
                         end
             end
@@ -99,10 +99,10 @@ class MyResolver < RubyDNS::Resolver
                 @config["white_list"].values.each do |item|
                    found = name.index(item)
                    if found!=nil
-                        response,result = request_oversea_resolver(message) 
+                        server,response,result = request_oversea_resolver(message) 
                         ip_list = get_iplist_from_response(result)
                         ttl_list = get_ttl_from_response(result)
-                        @logger.debug "Whitelist oversea resolver [#{name} #{ip_list} #{ttl_list}]" if @logger     
+                        @logger.debug "[white_list][#{server[1]}:#{server[2]}][#{name} #{ip_list}] #{ttl_list}]" if @logger     
                         return response
                    end
                 end
@@ -111,13 +111,13 @@ class MyResolver < RubyDNS::Resolver
 		 	#domestic_resp, domestic_addr = get_domestic_reponse(message)
             server,response, result = query_dns(message,@domestic_server_list,false)
 
-            if @config["white_list_mode"] 
-              @logger.debug "Whitelist domestic resolver [#{name}  [#{arr_to_s(get_iplist_from_response(result))}]] " if @logger
-              return response  
-            end
+            # if @config["white_list_mode"] 
+            #   @logger.debug "[white_list_mode domestic][#{server[1]}:#{server[2]}][#{name}  [#{arr_to_s(get_iplist_from_response(result))}]] " if @logger
+            #   return response  
+            # end
 
             if (result.length!=0) and force_using_domestic?(name)
-              @logger.debug "Force domestic resolver [#{name}  [#{arr_to_s(get_iplist_from_response(result))}]] " if @logger
+              @logger.debug "[force_domestic][#{server[1]}:#{server[2]}][#{name} [#{arr_to_s(get_iplist_from_response(result))}]] " if @logger
 		      return response  
 		    end
 		 	
