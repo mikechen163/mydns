@@ -109,7 +109,7 @@ class MyResolver < RubyDNS::Resolver
             end
 
 		 	#domestic_resp, domestic_addr = get_domestic_reponse(message)
-            response, result = query_dns(message,@domestic_server_list,false)
+            server,response, result = query_dns(message,@domestic_server_list,false)
 
             if @config["white_list_mode"] 
               @logger.debug "Whitelist domestic resolver [#{name}  [#{arr_to_s(get_iplist_from_response(result))}]] " if @logger
@@ -126,11 +126,11 @@ class MyResolver < RubyDNS::Resolver
 		 	#if (ip_list.length!=0) and  match_domestic?(ip_list[0].to_s)
             if is_domestic_result?(ip_list)
 		 		#do not buffer domestic ip
-                @logger.debug "Found in domestic range,[#{name} #{ip_list}]" if @logger 
+                @logger.debug "[domestic][#{server[1]}:#{server[2]}][#{name} #{ip_list}]" if @logger 
 		 		return response 
 
 		 	else
-                response_r,result_r = request_oversea_resolver(message) 
+                server_r,response_r,result_r = request_oversea_resolver(message) 
 
 
                  if (result_r.length==0) 
@@ -147,13 +147,13 @@ class MyResolver < RubyDNS::Resolver
                 if is_domestic_result?(ip_list)
                     final_site = "domestic"
                 else
-                    final_site = "oversea"
-                    response,result = response_r,result_r
+                    final_site = "oversea "
+                    server,response,result = server_r,response_r,result_r
                 end
 
                 ip_list = get_iplist_from_response(result)
                 ttl_list = get_ttl_from_response(result)
-                @logger.debug "Using #{final_site} resolver [#{name} #{ip_list} #{ttl_list}]" if @logger     
+                @logger.debug "[#{final_site}][#{server[1]}:#{server[2]}][#{name} #{ip_list} #{ttl_list}]" if @logger     
                 return response
             end
             
@@ -163,7 +163,7 @@ class MyResolver < RubyDNS::Resolver
 
         def request_oversea_resolver(message)
             name = get_request_domain_name(message)
-            response,result  = query_dns(message,@oversea_server_list,true)
+            server,response,result  = query_dns(message,@oversea_server_list,true)
                 
                 if (result.length!=0) 
                     #h=Hash.new
@@ -185,7 +185,7 @@ class MyResolver < RubyDNS::Resolver
                         h[:response] = response
                         h[:time] = Time.now
                         h[:state_valid] = true
-                        @logger.debug "Updating cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
+                        #@logger.debug "Updating cache [#{h[:name]} [#{arr_to_s(h[:ip])}] [#{arr_to_s(h[:ttl])}] " if @logger
                         #append_record(h[:name],h[:ip])
                     end
                     append_record(h[:name],arr_to_s(h[:ip]))
@@ -201,7 +201,7 @@ class MyResolver < RubyDNS::Resolver
                 #ip_list = get_iplist_from_response(result)
                 #ttl_list = get_ttl_from_response(result)
                 #@logger.debug "Using oversea resolver [#{name} #{ip_list} #{ttl_list}]" if @logger
-                return response , result
+                return server, response , result
         end
 
 		def get_type_a_address(name,response,oversea_flag=false)
@@ -268,7 +268,7 @@ class MyResolver < RubyDNS::Resolver
 					
 					if valid_response(message, response)
 						addr = get_type_a_address(get_request_domain_name(message),response,oversea_flag)
-						return response , addr
+					return server ,response , addr
 					end
 				# rescue Task::TimeoutError
 				# 	@logger.debug "[#{message.id}] Request timed out!" if @logger
@@ -282,7 +282,7 @@ class MyResolver < RubyDNS::Resolver
 				end
 			end
 
-			return nil,[]
+			return server_list[0],nil,[]
 		end #end of query_dns
 
 		# def get_domestic_reponse(message)
