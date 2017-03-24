@@ -237,6 +237,9 @@ class MyResolver < RubyDNS::Resolver
                         name = x.name.to_s
                         result.push([name[0..name.length-2],x.ttl.to_i]) #if x!=nil
                   end
+                  if x.class == Resolv::DNS::Resource::IN::AAAA
+                        result.push([x.address.to_s,x.ttl.to_i]) #if x!=nil
+                  end
                   #@logger.debug "Uknown type #{x.inspect} " if @logger
 	           
 
