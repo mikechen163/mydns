@@ -1,4 +1,9 @@
-mydns is used for anti dns polution, inspired by [chinadns](https://github.com/clowwindy/ChinaDNS)
+
+I use https://github.com/mikechen163/dohproxy as the current solution.
+
+-------------------------------------------------
+
+dns is used for anti dns polution, inspired by [chinadns](https://github.com/clowwindy/ChinaDNS)
 
 the main dns lookup process is as follows:
 
